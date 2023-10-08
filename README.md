@@ -1,1 +1,1 @@
-# ssa-graph
+# ITSENS project
