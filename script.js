@@ -1,32 +1,80 @@
-let chart = document.getElementById('myChart');
-let availableColors = ['#FF4500', '#1C86EE','#7CFC00', '#FF00FF', '#FF7F00','#000000'];
+let chart;
+let availableColors = ['#EE3B3B', '#5CACEE', '#7CFC00', '#FF00FF', '#FF4500', '#000000'];
+let rawData;
+let itemsPerPage = 100;
+let totalPages = 0;
+let currentPage = 1;
 
 $(document).ready(function () {
     if ($('#myChart').html() === "") {
-        $.get('C:\\Users\\Tamara\\Desktop\\2023merenja.csv', function (data) { dataToArrays(data) }, 'text');
+        $.get('https://raw.githubusercontent.com/60-2019-TL/ITSENS/main/itsens2023.csv', function (data) { dataToArrays(data) }, 'text');
     }
 
     document.getElementById('csvFile').addEventListener('change', upload, false);
-
 });
 
 function dataToArrays(data) {
-    let rawData = Papa.parse(data);
-   
+    rawData = Papa.parse(data);
+    totalPages = Math.ceil(rawData.data.length / itemsPerPage);
+    updatePagination();
+    displayCurrentPageData();
     createChart(rawData);
 }
 
+function updatePagination() {
+    let paginationElement = document.getElementById('pagination');
+    let paginationHTML = '';
+
+    for (let i = 1; i <= totalPages; i++) {
+        paginationHTML += `<li class="page-item ${i === currentPage ? 'active' : ''}"><a class="page-link" href="#" onclick="changePage(${i})">${i}</a></li>`;
+    }
+
+    paginationElement.innerHTML = paginationHTML;
+}
+
+function changePage(pageNumber) {
+    currentPage = pageNumber;
+    displayCurrentPageData();
+}
+
+function displayCurrentPageData() {
+    let startIndex = (currentPage - 1) * itemsPerPage;
+    let endIndex = Math.min(startIndex + itemsPerPage, rawData.data.length);
+    let currentPageData = rawData.data.slice(startIndex, endIndex);
+
+    // Prikazi paginaciju iznad tabele "Current data"
+    updatePagination();
+    displayDataInTable(currentPageData);
+}
+
+
+
+function displayDataInTable(data) {
+    // Prikazi paginaciju iznad tabele "Current data"
+    updatePagination();
+
+    let html = '<table class="table"><tbody>';
+    data.forEach(element => {
+        if (element.some(function (el) { return el !== null; })) {
+            html += '<tr>';
+            element.forEach(element => {
+                html += '<td>' + (element !== null ? element : '') + '</td>';
+            });
+            html += '</tr>';
+        }
+    });
+    html += '</tbody></table>';
+    $('#parsedData').html(html);
+}
 
 function getColor() {
     if (availableColors.length > 0) {
-        return availableColors.shift(); // Uzmi prvu boju iz niza i ukloni je iz niza
+        return availableColors.shift();
     } else {
         console.log("Nema više dostupnih boja.");
-        // Ako nestanu boje, možete vratiti podrazumevanu boju ili prekinuti izvršenje funkcije
-        return '#000000'; // Crna boja kao podrazumevana
+        return '#000000';
     }
 }
-
 
 function createChart(parsedData) {
     let dataArray = parsedData.data;
@@ -40,7 +88,7 @@ function createChart(parsedData) {
         headingArray.push({
             title: dataArray[0][i],
             unit: dataArray[1][i],
-        })
+        });
     }
 
     for (let i = 0; i < dataArray.length; i++) {
@@ -74,24 +122,14 @@ function createChart(parsedData) {
             html += '</tr>';
         }
     });
-    html += '</tbody></table>'
+    html += '</tbody></table>';
     $('#parsedData').html(html);
-
-    console.log(parsedData);
-    console.log(dataMatrix);
-    console.log(headingArray);
-
-    /* Global chart options */
 
     Chart.defaults.global.defaultFontFamily = 'Consolas';
     Chart.defaults.global.defaultFontSize = 18;
     Chart.defaults.global.defaultFontColor = 'black';
 
     Chart.defaults.global.elements.line.backgroundColor = 'transparent';
-
-    /* /Global chart options */
-
-    /* Data */
 
     let labels = dataMatrix[0];
     labels.splice(0, 3);
@@ -115,8 +153,6 @@ function createChart(parsedData) {
         });
     }
 
-    /* /Data */
-
     let myChart = document.getElementById('myChart').getContext('2d');
     let type = 'line';
     let data = {
@@ -126,15 +162,30 @@ function createChart(parsedData) {
     let options = {
         title: {
             display: true,
-            text: ['Prikaz rezultata merenja:'],
-            fontSize: 23,
+            text: ['Prikaz rezultata merenja', ''],
             fontFamily: "Times New Roman",
+            fontSize: 26,
         },
         legend: {
             position: 'bottom',
             labels: {
                 fontColor: 'black',
+                fontFamily: "Times New Roman",
             }
+        },
+        scales: {
+            yAxes: [{
+                ticks: {
+                    fontFamily: "Times New Roman",
+                    fontSize: 14,
+                }
+            }],
+            xAxes: [{
+                ticks: {
+                    fontFamily: "Times New Roman",
+                    fontSize: 14,
+                }
+            }]
         },
         tooltips: {
             intersect: false,
@@ -144,22 +195,24 @@ function createChart(parsedData) {
                 },
                 label: (toolTipItem) => {
                     return toolTipItem.yLabel + " " + headingArray[toolTipItem.datasetIndex + 1].unit;
-
                 },
             },
+            titleFontSize: 16,
+            bodyFontSize: 16,
         },
     };
+
+    if (chart) {
+        chart.destroy();
+    }
+
+    myChart.canvas.style.width = '80%';
+    myChart.canvas.style.height = '430px';
 
     chart = new Chart(myChart, { type, data, options });
 }
 
-
-
 function upload(evt) {
-    if (chart != null) {
-        chart.destroy();
-    }
-
     let data = null;
     let file = evt.target.files[0];
     let reader = new FileReader();
