@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -10,35 +10,76 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
         integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 
-    <title><b>IT u senzorskim sistemima</b></title>
+    <link rel="stylesheet" href="styles.css">
+
+    <title>IT u senzorskim sistemima</title>
 </head>
 
 <body>
 
-    <div class="container-fluid">
-        <div>
-            <form>
-                <div class="form-group mt-2"><br>
-                    <label for="csvFile" style="font-size: large; font-family: 'Times New Roman', Times, serif;"><b>Ovde ažurirati Vaš fajl:</b></label><br>
-                    <input type="file" class="form-control-file" id="csvFile" accept=".csv" style="font-family: 'Times New Roman', Times, serif;">
-                    <br>
-                </div>
-            </form>
+    <header class="header-container">
+        <div class="header-logo">
+            <h1>Informacione tehnologije u senzorskim sistemima</h1>
+        </div>
+        <div class="header-buttons">
+            <a href="#myChart" class="header-button">Dijagram</a>
+            <a href="#parsedData" class="header-button">Tabelarni prikaz</a>
+        </div>
+    </header>
+
+    
+    <div class="container-fluid main-container">
+        <!-- Naslov ITSENS -->
+        <div class="row mt-3">
+            <div class="col text-center" style="font-family: 'Times New Roman', Times, serif;">
+                <p align="justify" style="margin-left: 2cm; margin-right: 2cm; font-size: large;"> Senzori su uređaji ili komponente sistema koji osećaju i registruju fizičke, hemijske, mehaničke ili biološke promene u okolini i pretvaraju ih u električne signale ili digitalne podatke. Ovi uređaji su ključni za prikupljanje podataka iz stvarnog sveta i omogućavaju elektronskim sistemima da reaguju na okolnosti u njihovoj okolini.<br> Merenja su vršena data loggerom i merene su vrednosti: <br> <b>temperature, pritiska 1, zvuka, svetlosti, pritiska 2 i vlažnosti vazduha.</b> </p>
+            </div>
         </div>
 
+        <!-- Prikaz dijagrama -->
         <div class="row">
-            <div class="col-sm-12"><canvas id="myChart"></canvas><br></div>
+            <div class="col-sm-12"><canvas id="myChart"></canvas></div>
         </div>
         <br>
-        <div class="row mt-4">
-            <div class="col col-sm-12">
-                <div class="pl-5"><br>
-                    <h4 align="center"><i>Trenutni podaci</i></h4>
+
+        <!-- Opis podataka sa dijagrama -->
+        <div class="container-fluid">
+            <div class="row mt-4">
+                <div class="col col-sm-12">
+                    <h2 style="margin-left: 1cm;">Tabelarni podaci</h2>
+                    <p align="justify" style="margin-left: 1cm; margin-right: 2cm; font-size: large;">Kroz analizu ovih merenja, uspoređivali smo vrednosti senzora tokom različitih vremenskih perioda kako bismo identifikovali trendove i obrasce u promenama podataka. Fokusirali smo se na praćenje odnosa u promenama podataka, čime smo dobili dublje razumevanje o tome kako se sistemi ponašaju tokom vremena.
+
+                    Ova analiza nam je omogućila da identifikujemo ključne tačke u vremenu gde se vrednosti senzora značajno menjaju. Ove informacije su dragocene za optimizaciju sistema, detekciju anomalija i donošenje informisanih odluka u vezi sa upravljanjem sistemima koji se baziraju na senzorima.</p>
+                </div>
+            </div>
+        
+            <div class="row">
+                <div class="col col-sm-12">
+                    <nav aria-label="Data pagination">
+                        <ul class="pagination justify-content-center mt-3" id="pagination"></ul>
+                    </nav>
+                </div>
+            </div>
+        
+            <div class="row">
+                <div class="col col-sm-12">
                     <div id="parsedData"></div>
                 </div>
             </div>
         </div>
-    </div>
+        <br>
+
+        <footer class="footer-container">
+            <div class="footer-column">
+                <p><b>Profesor:</b> dr. Nebojsa Mitrovic</p>
+                <p><b>Asistent:</b> Jelena Orelj</p>
+            </div>
+            <div class="footer-column">
+                <p><b>Student:</b> Tamara Lukovic</p>
+                <p><b>Indeks:</b>60/2019</p>
+            </div>
+        </footer>
+        
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/papaparse@5.3.0/papaparse.min.js"></script>
@@ -51,6 +92,7 @@
         integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
         crossorigin="anonymous"></script>
     <script src="script.js"></script>
+
 </body>
 
 </html>
