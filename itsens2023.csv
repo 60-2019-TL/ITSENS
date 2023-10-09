@@ -1,5 +1,5 @@
-Time (mm:ss),Temperature,Pressure1,Sound,Light,Pressure2,Humidity,Comment
-,°C,kPa,dBA,lx,kPa,%RH,
+Time,Temperature,Pressure1,Sound,Light,Pressure2,Humidity,Comment
+, C, kPa, dBA, lx, kPa, %RH,
 0,18.7,97.6,50.3,69,97.91,50.3,
 0.02,18.7,97.4,43.1,77,97.94,50.2,
 0.04,18.7,97.4,40,78,97.93,50.2,
