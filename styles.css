@@ -14,13 +14,13 @@ body {
     justify-content: space-between;
     align-items: center;
     padding: 0.5cm 1cm;
-    width: 100%; /* Promenjeno na 100% */
+    width: 100%; 
     z-index: 2;
     box-shadow: 0px 5px 5px 0px rgba(0, 0, 0, 0.1);
 }
 
 .header-logo h1 {
-    margin: 0; /* Uklanja unutrašnji margin od h1 elementa */
+    margin: 0; 
 }
 
 .header-buttons {
@@ -45,7 +45,7 @@ body {
     color: black;
     text-align: center;
     padding: 0.5cm;
-    width: 100%; /* Promenjeno na 100% */
+    width: 100%; 
     bottom: 0;
     left: 0;
     display: flex;
@@ -87,15 +87,15 @@ body {
     background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTr-1RA_Rw6aL_VfFIFcq9E5Pm09OgHxIkyMA&usqp=CAU');
     background-size: cover;
     background-position: center;
-    color: black; /*Beli tekst na pozadini */
+    color: black; 
 }
 
 .video-container {
     position: relative;
     
-    width: 40%; /* Prilagodite širinu videa prema potrebama */
+    width: 40%;
     height: 0;
-    padding-bottom: 28.28%; /* Omjer širine i visine (16:9) */
+    padding-bottom: 28.28%; 
 }
 
 .video-container iframe {
