@@ -5,6 +5,7 @@ body {
     font-family: 'Times New Roman', Times, serif;
     min-height: 100vh;
     position: relative;
+    
 }
 
 .header-container {
@@ -56,4 +57,51 @@ body {
 .footer-column {
     flex: 1;
     margin: 0 10px;
+}
+
+.a1-card {
+    background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSRTloXEliocqWk7LyykzwnXbih1W1s_zFfjg&usqp=CAU');
+    background-size: cover;
+    background-position: center;
+    color: white;
+    
+}
+
+.koncentrat-card {
+    background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ902W0TyxQJJkrZ3Ejxfx8403d5lydwrjQ6Q&usqp=CAU');
+    background-size: cover;
+    background-position: center;
+   
+}
+
+.meteorologija-card {
+    background-image: url('https://www.hidmet.gov.rs/logo_new.png');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 200% 100%;
+    color: white;
+
+}
+
+.unicredit-card {
+    background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTr-1RA_Rw6aL_VfFIFcq9E5Pm09OgHxIkyMA&usqp=CAU');
+    background-size: cover;
+    background-position: center;
+    color: black; /*Beli tekst na pozadini */
+}
+
+.video-container {
+    position: relative;
+    
+    width: 40%; /* Prilagodite širinu videa prema potrebama */
+    height: 0;
+    padding-bottom: 28.28%; /* Omjer širine i visine (16:9) */
+}
+
+.video-container iframe {
+    margin-left: 11.5cm;
+    position: absolute;
+
+    width: 70%;
+    height: 60%;
 }
