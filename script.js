@@ -4,10 +4,11 @@ let rawData;
 let itemsPerPage = 100;
 let totalPages = 0;
 let currentPage = 1;
+let headingArray = []; 
 
 $(document).ready(function () {
     if ($('#myChart').html() === "") {
-        $.get('https://raw.githubusercontent.com/60-2019-TL/ITSENS/main/itsens2023.csv', function (data) { dataToArrays(data) }, 'text');
+        $.get('https://raw.githubusercontent.com/60-2019-TL/ITSENS/main/itsens2023.csv', function (data) { dataToArrays(data); createChart(rawData); }, 'text');
     }
 
     document.getElementById('csvFile').addEventListener('change', upload, false);
@@ -18,7 +19,7 @@ function dataToArrays(data) {
     totalPages = Math.ceil(rawData.data.length / itemsPerPage);
     updatePagination();
     displayCurrentPageData();
-    createChart(rawData);
+    // createChart(rawData);
 }
 
 function updatePagination() {
@@ -88,6 +89,7 @@ function createChart(parsedData) {
         headingArray.push({
             title: dataArray[0][i],
             unit: dataArray[1][i],
+            hidden: false,
         });
     }
 
@@ -139,6 +141,7 @@ function createChart(parsedData) {
     for (let i = 1; i < dataMatrix.length; i++) {
         let label = dataMatrix[i][0];
 
+        if (!headingArray[i].hidden) { 
         let datasetData = dataMatrix[i];
         datasetData.splice(0, 3);
 
@@ -152,6 +155,7 @@ function createChart(parsedData) {
             pointRadius: 0,
         });
     }
+}
 
     let myChart = document.getElementById('myChart').getContext('2d');
     let type = 'line';
@@ -230,4 +234,21 @@ function upload(evt) {
     reader.onerror = function () {
         console.log('Unable to read ' + file.fileName);
     };
+}
+
+
+window.onscroll = function() {scrollFunction()};
+
+function scrollFunction() {
+  if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+    document.getElementById("scrollToTopBtn").style.display = "block";
+  } else {
+    document.getElementById("scrollToTopBtn").style.display = "none";
+  }
+}
+
+// Klikom na dugme, korisnik će se vratiti na vrh stranice
+function topFunction() {
+  document.body.scrollTop = 0; // Za Safari
+  document.documentElement.scrollTop = 0; // Za Chrome, Firefox, IE i Opera
 }
