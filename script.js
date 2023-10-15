@@ -19,7 +19,6 @@ function dataToArrays(data) {
     totalPages = Math.ceil(rawData.data.length / itemsPerPage);
     updatePagination();
     displayCurrentPageData();
-    // createChart(rawData);
 }
 
 function updatePagination() {
@@ -43,7 +42,6 @@ function displayCurrentPageData() {
     let endIndex = Math.min(startIndex + itemsPerPage, rawData.data.length);
     let currentPageData = rawData.data.slice(startIndex, endIndex);
 
-    // Prikazi paginaciju iznad tabele "Current data"
     updatePagination();
     displayDataInTable(currentPageData);
 }
@@ -236,7 +234,6 @@ function upload(evt) {
     };
 }
 
-
 window.onscroll = function() {scrollFunction()};
 
 function scrollFunction() {
@@ -247,8 +244,7 @@ function scrollFunction() {
   }
 }
 
-// Klikom na dugme, korisnik će se vratiti na vrh stranice
 function topFunction() {
-  document.body.scrollTop = 0; // Za Safari
-  document.documentElement.scrollTop = 0; // Za Chrome, Firefox, IE i Opera
+  document.body.scrollTop = 0; 
+  document.documentElement.scrollTop = 0; 
 }
